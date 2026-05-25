@@ -15,6 +15,8 @@ public class Player : NetworkBehaviour
     [Networked] public bool CanPickUpBall {get; set;}
     [Networked] private bool HasBall { get; set; } = false;
     public TextMeshPro nameText;
+    public GameObject mainCamera;
+    public GameObject overheadCamera;
     public override void Spawned()
     {
         controller = GetComponent<CharacterController>();
@@ -40,6 +42,8 @@ public class Player : NetworkBehaviour
     }
     void Update()
     {
+        if (Object == null || !Object.IsValid) return;
+
         if (nameText != null)
             nameText.text = PlayerName.ToString();
 
@@ -66,6 +70,7 @@ public class Player : NetworkBehaviour
 
             if (data.ballActionPressed && CanPickUpBall && !HasBall)
             {
+                
                 Debug.Log("Ball action triggered!");
 
                 GameObject ball = GameObject.FindWithTag("Ball");
