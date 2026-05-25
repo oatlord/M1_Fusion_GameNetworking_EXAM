@@ -10,7 +10,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPos = new Vector3(player.PlayerId * 3f, 1, 0);
+            Vector3 spawnPos = new Vector3(0f, 1, 0);
             var playerObj = runner.Spawn(
                 playerPrefab,
                 spawnPos,
