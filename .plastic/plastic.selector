@@ -1,0 +1,4 @@
+repository "TARQUINI-M1-Fusion 2-Networking setup-LAB2/TARQUINI-M1-Fusion 2-Networking setup-LAB2@20067324644304@cloud"
+  path "/"
+    br "/main"
+    co "/main"
