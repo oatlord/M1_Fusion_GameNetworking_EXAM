@@ -2050,7 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cafd364d6728e40910124efd643b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PickedUp: 0
+  _ballParent: {fileID: 1158562191}
 --- !u!114 &977117843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,6 +2269,8 @@ GameObject:
   - component: {fileID: 1158562187}
   - component: {fileID: 1158562186}
   - component: {fileID: 1158562185}
+  - component: {fileID: 1158562191}
+  - component: {fileID: 1158562190}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -2390,6 +2392,39 @@ Transform:
   - {fileID: 977117840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1158562190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158562184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 637069267
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects:
+  - {fileID: 977117843}
+  NetworkedBehaviours:
+  - {fileID: 1158562191}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &1158562191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158562184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dea6ac4ddf552e24a9b8c73f7d1c3369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHoldingBall: {fileID: 0}
 --- !u!1 &1278714089
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,6 +2437,8 @@ GameObject:
   - component: {fileID: 1278714092}
   - component: {fileID: 1278714091}
   - component: {fileID: 1278714090}
+  - component: {fileID: 1278714094}
+  - component: {fileID: 1278714095}
   m_Layer: 0
   m_Name: GoalZone
   m_TagString: Untagged
@@ -2495,6 +2532,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1278714094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278714089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce985edb7e2e77a4f865ce92f263012b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1278714095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278714089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2831474543
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1278714094}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &1329336476
 GameObject:
   m_ObjectHideFlags: 0

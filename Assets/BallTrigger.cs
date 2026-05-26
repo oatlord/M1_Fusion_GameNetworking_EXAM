@@ -3,20 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
-public class BallTrigger : MonoBehaviour
+public class BallTrigger : NetworkBehaviour
 {
-    [Networked] public bool PickedUp { get; set; } = false;
+    [Networked] public Ball ballParent { get; set; }
+    // [Networked] public bool PickedUp { get; set; } = false;
+    // private bool playerInRange;
+
+    public override void Spawned()
+    {
+        ballParent = GetComponentInParent<Ball>();
+    }
+
     void Awake()
     {
     }
+
     void Update()
     {
-        if (PickedUp)
+        // Debug.Log("Player holding ball/last held by: " + (ballParent.playerHoldingBall != null ? ballParent.playerHoldingBall.PlayerName.ToString() : "None"));
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        Player[] players = FindObjectsOfType<Player>();
+        foreach (Player p in players)
         {
-            gameObject.SetActive(false);
-        } else
-        {
-            gameObject.SetActive(true);
+            if (p.Object == null || !p.Object.IsValid) continue;
+
+            if (p.HasBall) 
+            {
+                ballParent.playerHoldingBall = p;
+            }
         }
     }
 
@@ -28,6 +45,7 @@ public class BallTrigger : MonoBehaviour
             if (player != null && player.Object.HasStateAuthority)
             {
                 player.CanPickUpBall = true;
+                // playerInRange = true;
             }
         }
     }
@@ -40,6 +58,7 @@ public class BallTrigger : MonoBehaviour
             if (player != null && player.Object.HasStateAuthority)
             {
                 player.CanPickUpBall = false;
+                // playerInRange = false;
             }
         }
     }
