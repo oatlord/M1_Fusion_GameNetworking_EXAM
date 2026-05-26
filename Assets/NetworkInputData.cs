@@ -4,4 +4,8 @@ public struct NetworkInputData : INetworkInput
 {
     public Vector2 direction;
     public bool jumpPressed;
+
+    public bool ballActionPressed;
+
+    public bool ballReleasedPressed;
 }

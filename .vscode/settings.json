@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TARQUINI-M1-Fusion 2-Networking setup-LAB2.sln"
+    "dotnet.defaultSolution": "M1_Fusion_GameNetworking_EXAM.sln"
 }

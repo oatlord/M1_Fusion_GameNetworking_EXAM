@@ -10,6 +10,8 @@ public class InputProvider : MonoBehaviour
             Input.GetAxis("Vertical")
         );
         data.jumpPressed = Input.GetKey(KeyCode.Space);
+        data.ballActionPressed = Input.GetMouseButton(0); // Left click for ball action
+        data.ballReleasedPressed = Input.GetMouseButton(1); // Right click for ball release
         input.Set(data);
     }
 }

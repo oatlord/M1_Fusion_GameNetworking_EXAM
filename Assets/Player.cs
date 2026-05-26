@@ -1,17 +1,23 @@
 using UnityEngine;
 using Fusion;
 using TMPro;
+using ExitGames.Client.Photon.StructWrapping;
 public class Player : NetworkBehaviour
 {
     CharacterController controller;
     public float speed = 5f;
     public float jumpForce = 5f;
+    public float throwForce = 10f;
     float gravity = -9.81f;
     Vector3 velocity;
     [Networked] public int Score { get; set; }
     [Networked] public bool IsReady { get; set; }
     [Networked] public NetworkString<_16> PlayerName { get; set; }
+    [Networked] public bool CanPickUpBall {get; set;} = true;
+    [Networked] private bool HasBall { get; set; } = false;
     public TextMeshPro nameText;
+    public GameObject mainCamera;
+    public GameObject overheadCamera;
     public override void Spawned()
     {
         controller = GetComponent<CharacterController>();
@@ -37,8 +43,12 @@ public class Player : NetworkBehaviour
     }
     void Update()
     {
+        if (Object == null || !Object.IsValid) return;
+
         if (nameText != null)
             nameText.text = PlayerName.ToString();
+
+        Debug.Log("Can pick up ball: " + CanPickUpBall);
     }
     public override void FixedUpdateNetwork()
     {
@@ -46,16 +56,50 @@ public class Player : NetworkBehaviour
         {
             Vector3 move = new Vector3(data.direction.x, 0, data.direction.y);
             controller.Move(move * speed * Runner.DeltaTime);
+
             if (controller.isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
             }
+
             velocity.y += gravity * Runner.DeltaTime;
+
             if (data.jumpPressed && controller.isGrounded)
             {
                 velocity.y = jumpForce;
             }
-            controller.Move(velocity * Runner.DeltaTime);
+
+            if (data.ballActionPressed && CanPickUpBall && !HasBall)
+            {
+                
+                Debug.Log("Ball action triggered!");
+
+                GameObject ball = GameObject.FindWithTag("Ball");
+                if (ball != null)
+                {
+                    ball.transform.SetParent(transform);
+                    ball.transform.localPosition = new Vector3(0, 1, 0);
+                    ball.GetComponent<Rigidbody>().isKinematic = true;
+                    CanPickUpBall = false;
+                    HasBall = true;
+                }
+            }
+
+            if (data.ballReleasedPressed && HasBall)
+            {
+                Debug.Log("Dropping the ball!");
+
+                Transform ball = transform.Find("Ball");
+
+                if (ball != null)
+                {
+                    ball.transform.SetParent(null);
+                    ball.GetComponent<Rigidbody>().isKinematic = false;
+                    ball.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
+                    CanPickUpBall = true;
+                    HasBall = false;
+                }
+            }
         }
     }
 }
