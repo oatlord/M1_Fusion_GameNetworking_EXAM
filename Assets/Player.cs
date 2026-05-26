@@ -7,6 +7,7 @@ public class Player : NetworkBehaviour
     CharacterController controller;
     public float speed = 5f;
     public float jumpForce = 5f;
+    public float throwForce = 10f;
     float gravity = -9.81f;
     Vector3 velocity;
     [Networked] public int Score { get; set; }
@@ -79,7 +80,7 @@ public class Player : NetworkBehaviour
                 {
                     ball.transform.SetParent(transform);
                     ball.transform.localPosition = new Vector3(0, 1, 0);
-                    // ball.GetComponent<Rigidbody>().isKinematic = true;
+                    ball.GetComponent<Rigidbody>().isKinematic = true;
                     // ballTrigger.PickedUp = true;
                     CanPickUpBall = false;
                     HasBall = true;
@@ -97,8 +98,8 @@ public class Player : NetworkBehaviour
                 if (ball != null)
                 {
                     ball.transform.SetParent(null);
-                    // ball.GetComponent<Rigidbody>().isKinematic = false;
-                    // ball.GetComponent<Rigidbody>().AddForce(transform.forward * 5f, ForceMode.Impulse);
+                    ball.GetComponent<Rigidbody>().isKinematic = false;
+                    ball.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
                     // ball.transform.position = transform.position + transform.forward * 2;
                     CanPickUpBall = true;
                     HasBall = false;
