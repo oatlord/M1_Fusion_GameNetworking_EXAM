@@ -13,7 +13,7 @@ public class Player : NetworkBehaviour
     [Networked] public int Score { get; set; }
     [Networked] public bool IsReady { get; set; }
     [Networked] public NetworkString<_16> PlayerName { get; set; }
-    [Networked] public bool CanPickUpBall {get; set;}
+    [Networked] public bool CanPickUpBall {get; set;} = true;
     [Networked] private bool HasBall { get; set; } = false;
     public TextMeshPro nameText;
     public GameObject mainCamera;
@@ -75,13 +75,11 @@ public class Player : NetworkBehaviour
                 Debug.Log("Ball action triggered!");
 
                 GameObject ball = GameObject.FindWithTag("Ball");
-                // BallTrigger ballTrigger = GetComponentInChildren<BallTrigger>();
                 if (ball != null)
                 {
                     ball.transform.SetParent(transform);
                     ball.transform.localPosition = new Vector3(0, 1, 0);
                     ball.GetComponent<Rigidbody>().isKinematic = true;
-                    // ballTrigger.PickedUp = true;
                     CanPickUpBall = false;
                     HasBall = true;
                 }
@@ -92,22 +90,16 @@ public class Player : NetworkBehaviour
                 Debug.Log("Dropping the ball!");
 
                 Transform ball = transform.Find("Ball");
-                // GameObject ball = GameObject.FindWithTag("Ball");
-                // BallTrigger ballTrigger = GetComponentInChildren<BallTrigger>();
 
                 if (ball != null)
                 {
                     ball.transform.SetParent(null);
                     ball.GetComponent<Rigidbody>().isKinematic = false;
                     ball.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
-                    // ball.transform.position = transform.position + transform.forward * 2;
                     CanPickUpBall = true;
                     HasBall = false;
-                    // ballTrigger.PickedUp = false;
                 }
             }
-
-            // controller.Move(velocity * Runner.DeltaTime);
         }
     }
 }
