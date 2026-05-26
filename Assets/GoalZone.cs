@@ -15,6 +15,7 @@ public class GoalZone : NetworkBehaviour
             {
                 Debug.Log("Ball entered the goal zone! Last held by: " + (ball.playerHoldingBall != null ? ball.playerHoldingBall.PlayerName.ToString() : "None"));
                 ball.playerHoldingBall.Score += 1; // Increment the player's score
+                GameManager.Instance.ballPresent = false; // Update GameManager to indicate the ball is no longer present
                 Runner.Despawn(ball.Object); // Despawn the ball
             }
 
