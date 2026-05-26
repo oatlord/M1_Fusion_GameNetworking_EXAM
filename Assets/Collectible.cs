@@ -22,7 +22,7 @@ public class Collectible : NetworkBehaviour
         {
             p.Score += 1;
             if (GameManager.Instance != null)
-                GameManager.Instance.CollectiblesLeft--;
+                // GameManager.Instance.CollectiblesLeft--;
             Runner.Despawn(Object);
         }
     }

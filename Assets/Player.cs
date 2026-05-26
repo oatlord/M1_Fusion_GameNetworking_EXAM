@@ -14,7 +14,7 @@ public class Player : NetworkBehaviour
     [Networked] public bool IsReady { get; set; }
     [Networked] public NetworkString<_16> PlayerName { get; set; }
     [Networked] public bool CanPickUpBall {get; set;} = true;
-    [Networked] private bool HasBall { get; set; } = false;
+    [Networked] public bool HasBall { get; set; } = false;
     public TextMeshPro nameText;
     public GameObject mainCamera;
     public GameObject overheadCamera;
@@ -49,6 +49,8 @@ public class Player : NetworkBehaviour
             nameText.text = PlayerName.ToString();
 
         Debug.Log("Can pick up ball: " + CanPickUpBall);
+
+        Debug.Log("Score: " + Score);
     }
     public override void FixedUpdateNetwork()
     {
